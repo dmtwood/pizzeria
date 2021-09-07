@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Pizza Papa</title>
@@ -9,5 +10,6 @@
 <body>
 <img src="images/luigi.jpg" alt="pizza" class="fullwidth"/>
 <h1> Pizza Luigi </h1>
+<h2> Good <span th:text="${indexMessage}"></span> </h2>
 </body>
 </html>
