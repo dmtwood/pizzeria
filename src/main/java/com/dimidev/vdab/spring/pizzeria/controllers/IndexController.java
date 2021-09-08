@@ -1,11 +1,14 @@
 package com.dimidev.vdab.spring.pizzeria.controllers;
 
+import com.dimidev.vdab.spring.pizzeria.domain.Address;
+import com.dimidev.vdab.spring.pizzeria.domain.Person;
 import com.sun.source.tree.NewArrayTree;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 //@RestController -> when hard coding html, not using thymeleaf
@@ -13,15 +16,29 @@ import java.time.LocalTime;
 @RequestMapping("/")
 class IndexController {
 
-    @GetMapping
-    public ModelAndView index() {
+    private String getPartOfDay() {
         int currHour = LocalTime.now().getHour();
         if
-        (currHour < 12) return new ModelAndView("index", "indexMessage", "morning");
+        (currHour < 12) return "morning";
         else if
-        (currHour > 17) return new ModelAndView("index", "indexMessage", "evening");
+        (currHour > 17) return "evening";
         else
-            return new ModelAndView("index", "indexMessage", "afternoon");
+            return "afternoon";
+    }
+
+    @GetMapping
+    public ModelAndView index() {
+
+        ModelAndView indexView = new ModelAndView("index", "partOfTheDay", getPartOfDay() );
+
+        indexView.addObject("chef",
+                new Person(
+                    "Dimi", "Fromaggi", 1,true ,
+                    LocalDate.of(1976,8, 5),
+                    new Address("Kruishuisstraat", "66b2", "2300", "Turnhout")
+        ));
+
+        return indexView;
     }
 
 //    @GetMapping

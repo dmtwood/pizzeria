@@ -3,13 +3,29 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Pizza Papa</title>
+    <title>Pizza Papi</title>
     <link rel="icon" href="images/luigi.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/luigi.css" type="text/css">
 </head>
+
 <body>
+
 <img src="images/luigi.jpg" alt="pizza" class="fullwidth"/>
+
 <h1> Pizza Luigi </h1>
-<h2> Good <span th:text="${indexMessage}"></span> </h2>
+
+<h2> Good <span th:text="${partOfTheDay}"></span>, welcome at Pizza Papi's ! </h2>
+
+<h2> Who is your chef ?</h2>
+
+<dl th:object="${chef}">
+    <dt> Name </dt>
+    <dl th:text="*{fullName}"></dl>
+    <dt> Number of kids </dt>
+    <dl th:text="*{nrOfKids}"></dl>
+    <dt> Married ?</dt>
+    <dl th:text=" *{nrOfKids} ? 'Yes' : 'Nope' "></dl>
+</dl>
+
 </body>
 </html>
