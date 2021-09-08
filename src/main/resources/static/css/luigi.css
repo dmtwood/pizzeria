@@ -16,16 +16,18 @@ body {
 	width: 100%;
 }
 
-dd,dt {
-	margin-left: 0;
-}
-
 dt {
+	margin-left: 0;
 	margin-top: 0.5em;
 }
 
 dd {
 	font-weight: bold;
+	margin-left: 20px;
+
+}
+
+dl {
 }
 
 label span, .fout {

@@ -1,0 +1,16 @@
+
+<head th:fragment="head(title)" xmlns:th="http://www.thymeleaf.org">
+
+    <link rel="icon" th:href="@{/images/luigi.ico}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/css/luigi.css}" type="text/css">
+    <title th:text="${title}"> </title>
+</head>
+
+<img th:fragment="banner" th:src="@{/images/luigi.jpg}" alt="pizza" class="fullwidth"/>
+
+<nav th:fragment="nav">
+    <ul>
+        <li> <a th:href="@{/}"> Home</a> </li>
+        <li> <a th:href="@{/pizzas}"> Pizza's </a></li>
+    </ul>
+</nav>

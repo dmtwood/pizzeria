@@ -1,30 +1,32 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Pizza Papi</title>
-    <link rel="icon" href="images/luigi.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/luigi.css" type="text/css">
+<head th:replace="fragments::head(title='Pizza Papi\'s home page')">
+
 </head>
 
 <body>
 
-<img src="images/luigi.jpg" alt="pizza" class="fullwidth"/>
+<img th:replace="fragments::banner" >
+
+<nav th:replace="fragments::nav"></nav>
 
 <h1> Pizza Luigi </h1>
 
 <h2> Good <span th:text="${partOfTheDay}"></span>, welcome at Pizza Papi's ! </h2>
 
-<h2> Who is your chef ?</h2>
+<h2> Your chef today is </h2>
 
 <dl th:object="${chef}">
     <dt> Name </dt>
-    <dl th:text="*{fullName}"></dl>
+    <dd th:text="*{fullName}"></dd>
     <dt> Number of kids </dt>
-    <dl th:text="*{nrOfKids}"></dl>
+    <dd th:text="*{nrOfKids}"></dd>
     <dt> Married ?</dt>
-    <dl th:text=" *{nrOfKids} ? 'Yes' : 'Nope' "></dl>
+    <dd th:text=" *{nrOfKids} ? 'Yes' : 'Nope' "></dd>
+    <dt> Address </dt>
+    <dd th:object="${chef.address}" th:text=" | *{street} *{nr} *{areaCode} *{town} | " > </dd>
+
 </dl>
 
 </body>

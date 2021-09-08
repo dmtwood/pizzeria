@@ -1,0 +1,33 @@
+<!doctype html>
+
+
+
+<html lang="nl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head(
+    title =    ${pizza} == null ? 'Pizza niet gevonden' : ${pizza.name}
+      )">
+
+</head>
+<body>
+
+
+<img th:replace="fragments::banner"/>
+
+<nav th:replace="fragments::nav"></nav>
+
+<h1 th:if="${pizza} == null"> Pizza was not found. Following id was not valid: <span th:text="${id}"></span> </h1>
+
+<div th:if="${pizza} != null" th:object="${pizza}">
+    <h1 th:text="*{name}"></h1>
+    <dl>
+        <dt> Nr. </dt>
+        <dd th:text="*{id}"> </dd>
+        <dt> Price: </dt>
+        <dd th:text="*{price}"></dd>
+        <dt> Spicy ?</dt>
+        <dd th:text=" *{spicy}?'Hell yeah' : 'Naaah, I like to taste my food'"></dd>
+    </dl>
+</div>
+
+</body>
+</html>
