@@ -2,6 +2,7 @@ package com.dimidev.vdab.spring.pizzeria.controllers;
 
 import com.dimidev.vdab.spring.pizzeria.domain.Pizza;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,14 +32,22 @@ public class PizzaController {
 
     // METHODS
     @GetMapping
-    public ModelAndView pizzas() {
-        return new ModelAndView("pizzas", "pizzas", pizzas);
+    public ModelAndView pizzas(
+            @CookieValue(name = "colorCookie", required = false) String color
+    ) {
+        ModelAndView pizzasView = new ModelAndView("pizzas", "pizzas", pizzas);
+        pizzasView.addObject("color", color);
+        return pizzasView;
     }
 
 
     @GetMapping("{id}")
-    public ModelAndView pizza(@PathVariable long id) {
+    public ModelAndView pizza(
+            @PathVariable long id,
+            @CookieValue(name = "colorCookie", required = false) String color
+    ) {
         ModelAndView pizzaDetailView = new ModelAndView("pizza");
+        pizzaDetailView.addObject("color", color);
         Arrays.stream(pizzas)
                 .filter( pizza -> pizza.getId() == id )
                 .findFirst()

@@ -12,6 +12,22 @@ body {
 	background-color: LightBlue;
 }
 
+.red {
+	background: indianred;
+}
+
+.blue {
+	background-color: cornflowerblue;
+}
+
+.yellow {
+	background-color: lightgoldenrodyellow;
+}
+
+.black {
+	background-color: black;
+}
+
 .fullwidth {
 	width: 100%;
 }

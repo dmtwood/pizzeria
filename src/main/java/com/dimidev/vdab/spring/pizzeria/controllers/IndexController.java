@@ -4,6 +4,7 @@ import com.dimidev.vdab.spring.pizzeria.domain.Address;
 import com.dimidev.vdab.spring.pizzeria.domain.Person;
 import com.sun.source.tree.NewArrayTree;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,10 +28,12 @@ class IndexController {
     }
 
     @GetMapping
-    public ModelAndView index() {
+    public ModelAndView index(
+            @CookieValue(name = "colorCookie", required = false) String color
+    ) {
 
         ModelAndView indexView = new ModelAndView("index", "partOfTheDay", getPartOfDay() );
-
+        indexView.addObject("color", color);
         indexView.addObject("chef",
                 new Person(
                     "Dimi", "Fromaggi", 1,true ,

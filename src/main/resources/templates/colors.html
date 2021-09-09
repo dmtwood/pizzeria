@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head th:replace="fragments::head('Pizza Papi \'s - custom colors')">
+</head>
+<body th:class="${color}">
+
+<img th:replace="fragments::banner">
+
+<nav th:replace="fragments::nav"></nav>
+
+<h1> Choose your color </h1>
+
+<p><a th:href="@{/colors/red}"> red </a></p>
+<p><a th:href="@{/colors/blue}">blue </a> </p>
+<p><a th:href="@{/colors/yellow}"> yellow </a></p>
+<p><a th:href="@{/colors/black}"> black</a></p>
+
+</body>
+</html>

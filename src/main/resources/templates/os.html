@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments::head('Pizza Papi - OS detection')" >
 </head>
-<body>
+<body th:class="${color}">
 <img th:replace="fragments::banner">
 <nav th:replace="fragments::nav"></nav>
 

@@ -1,6 +1,7 @@
 package com.dimidev.vdab.spring.pizzeria.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +26,12 @@ class OSController {
 // METHODS
 
     @GetMapping
-    public ModelAndView os(@RequestHeader("User-agent") String userAgent) {
+    public ModelAndView os(
+            @RequestHeader("User-agent") String userAgent,
+            @CookieValue(name = "colorCookie", required = false) String color
+    ) {
         ModelAndView osView = new ModelAndView("os");
+        osView.addObject("color", color);
         Arrays.stream(OSs)
                 .filter( userAgent::contains )
                 .findFirst()
