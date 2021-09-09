@@ -11,11 +11,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.concurrent.atomic.AtomicInteger;
 
 //@RestController -> when hard coding html, not using thymeleaf
 @Controller
 @RequestMapping("/")
 class IndexController {
+
+    // MEMBER VARS
+
+    private final AtomicInteger nrOfVisits = new AtomicInteger();
+
+    // METHODS
 
     private String getPartOfDay() {
         int currHour = LocalTime.now().getHour();
@@ -31,9 +38,9 @@ class IndexController {
     public ModelAndView index(
             @CookieValue(name = "colorCookie", required = false) String color
     ) {
-
         ModelAndView indexView = new ModelAndView("index", "partOfTheDay", getPartOfDay() );
         indexView.addObject("color", color);
+        indexView.addObject("nrOfVisits", nrOfVisits.incrementAndGet() );
         indexView.addObject("chef",
                 new Person(
                     "Dimi", "Fromaggi", 1,true ,
