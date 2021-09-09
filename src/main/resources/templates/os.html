@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head('Pizza Papi - OS detection')" >
+</head>
+<body>
+<img th:replace="fragments::banner">
+<nav th:replace="fragments::nav"></nav>
+
+<h1> Your Operating System is <span th:text="${osString} == null? 'onbekend': ${osString} "></span></h1>
+</body>
+</html>
