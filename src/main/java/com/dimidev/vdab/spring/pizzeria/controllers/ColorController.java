@@ -30,7 +30,8 @@ public class ColorController {
     public ModelAndView showView(
             @CookieValue(name = "colorCookie", required = false) String color
     ) {
-        return new ModelAndView("colors", "colorCookie", color);
+        return new ModelAndView("colors", "colorCookie", color)
+                .addObject("color", color);
     }
 
     @GetMapping("/{color}")

@@ -10,6 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/pizzas")
@@ -55,6 +57,36 @@ public class PizzaController {
         return pizzaDetailView;
     }
 
+    @GetMapping("/prices")
+    public ModelAndView prices() {
+        return new ModelAndView(
+                "prices",
+                "prices",
+                getPrices()
+        );
+    }
+
+    private List<BigDecimal> getPrices() {
+        return Arrays.stream( pizzas )
+                .map( Pizza::getPrice )
+                .distinct()
+                .sorted()
+                .collect( Collectors.toList() );
+    }
+
+
+    List<Pizza> pizzasByPrice( BigDecimal price ) {
+        return Arrays.stream(pizzas)
+                .filter(pizza -> pizza.getPrice().compareTo(price) == 0)
+                .collect(Collectors.toList());
+    }
+    @GetMapping("/prices/{price}")
+    public ModelAndView pizzasWithPrice(
+            @PathVariable BigDecimal price
+    ){
+        return new ModelAndView("prices", "pizzasWithPrice", pizzasByPrice(price))
+                .addObject("prices", getPrices());
+    }
 
 // OVERRIDDEN METHODS
 
