@@ -24,8 +24,11 @@
         <dd th:text="*{id}"> </dd>
         <dt> Price: </dt>
         <dd th:text="*{price}"></dd>
+        <dt th:if="${priceInDollar} != null">in dollars</dt>
+        <dd th:if="${priceInDollar} != null" th:text="${priceInDollar}"></dd>
         <dt> Spicy ?</dt>
         <dd th:text=" *{spicy}?'Hell yeah' : 'Naaah, I like to taste my food'"></dd>
+
     </dl>
 </div>
 

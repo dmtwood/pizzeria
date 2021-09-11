@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments::head('Pizza Papi - Search by price ')">
 </head>
 <body>
@@ -11,16 +11,19 @@
 
 <ul>
     <li th:each="price:${prices}">
-        <a th:href="@{/pizzas/prices/{price} (price = ${price}) }" th:text="| € ${price} |"></a>
+        <a th:href="@{ /pizzas/prices/{price} (price = ${price}) }" th:text="| € ${price} |"></a>
     </li>
 </ul>
 
 <div th:if="${price} != null">
     <h2> Pizza's costing <span th:text="${price}"></span></h2>
     <ul>
-        <li th:each="pizza:${pizzasWithPrice}" th:text="${pizza.name}"></li>
+        <li>
+            <a th:each="pizza:${pizzasWithPrice}" th:href="@{/pizzas/{id} (id=${pizza.id})}"
+               th:text="${pizza.name}"> </a>
+        </li>
     </ul>
-</div>
+</div>k
 
 </body>
 </html>
