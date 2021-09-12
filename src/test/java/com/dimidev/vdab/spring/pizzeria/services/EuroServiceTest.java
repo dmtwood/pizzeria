@@ -23,7 +23,7 @@ public class EuroServiceTest {
     private DefaultEuroService defaultEuroService;
     @BeforeEach
     void beforeEach(){
-        defaultEuroService = new DefaultEuroService(currencyRateClient);
+        defaultEuroService = new DefaultEuroService( new CurrencyRateClient[] {currencyRateClient} );
     }
 
 // TEST METHODS

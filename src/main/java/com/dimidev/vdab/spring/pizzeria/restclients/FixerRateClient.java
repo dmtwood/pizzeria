@@ -1,6 +1,8 @@
 package com.dimidev.vdab.spring.pizzeria.restclients;
 
 import com.dimidev.vdab.spring.pizzeria.exceptions.CurrencyRateConvertorException;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -11,6 +13,8 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 @Component
+//@Qualifier("FixerRate")
+@Order(1)
 public class FixerRateClient implements CurrencyRateClient {
 
 // MEMBER VARS

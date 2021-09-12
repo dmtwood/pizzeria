@@ -1,6 +1,9 @@
 package com.dimidev.vdab.spring.pizzeria.restclients;
 
 import com.dimidev.vdab.spring.pizzeria.exceptions.CurrencyRateConvertorException;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -12,6 +15,9 @@ import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+@Component
+//@Qualifier("EcbRate")
+@Order(2)
 public class ECBRateClient implements CurrencyRateClient {
 
 // MEMBER VARS

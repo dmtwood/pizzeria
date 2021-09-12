@@ -1,5 +1,6 @@
 package com.dimidev.vdab.spring.pizzeria.services;
 
+import com.dimidev.vdab.spring.pizzeria.exceptions.CurrencyRateConvertorException;
 import com.dimidev.vdab.spring.pizzeria.restclients.CurrencyRateClient;
 import org.springframework.stereotype.Service;
 
@@ -11,12 +12,12 @@ class DefaultEuroService implements EuroService {
 
 // MEMBER VARS
 
-    private final CurrencyRateClient currencyRateClient;
+    private final CurrencyRateClient[] currencyRateClients;
 
 // CONSTRUCTORS
 
-    public DefaultEuroService(CurrencyRateClient currencyRateClient) {
-        this.currencyRateClient = currencyRateClient;
+    public DefaultEuroService(CurrencyRateClient[] currencyRateClients) {
+        this.currencyRateClients = currencyRateClients;
     }
 
 // GETTERS ( & SETTERS IF MUTABLE)
@@ -29,8 +30,16 @@ class DefaultEuroService implements EuroService {
 
     @Override
     public BigDecimal euroToDollar(BigDecimal amountOfEuros) {
-        return amountOfEuros
-                .multiply(currencyRateClient.getDollarRating())
-                .setScale(2, RoundingMode.HALF_UP);
+        Exception lastException = null;
+        for (CurrencyRateClient currencyRateClient : currencyRateClients) {
+            try {
+                return amountOfEuros
+                        .multiply(currencyRateClient.getDollarRating())
+                        .setScale(2, RoundingMode.HALF_UP);
+            } catch (CurrencyRateConvertorException ex) {
+                lastException = ex;
+            }
+        }
+        throw new CurrencyRateConvertorException("Can't get any USD rate from ECB nor Fixer rest client", lastException);
     }
 }
