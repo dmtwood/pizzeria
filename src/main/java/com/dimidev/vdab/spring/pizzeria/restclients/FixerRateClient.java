@@ -2,6 +2,7 @@ package com.dimidev.vdab.spring.pizzeria.restclients;
 
 import com.dimidev.vdab.spring.pizzeria.exceptions.CurrencyRateConvertorException;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -21,17 +22,12 @@ public class FixerRateClient implements CurrencyRateClient {
 
     private static final Pattern JSONPROP_QUOTE_USD_QUOTE_IS = Pattern.compile(".*\"USD\":");
 
-    private final URL restApiUrl;
+    private final URL fixerRateUrl;
 
 // CONSTRUCTORS
 
-    public FixerRateClient() {
-        try {
-            // free plan, no https included
-            restApiUrl = new URL("http://data.fixer.io/api/latest?access_key=5f9fa72f4ec711aa491d2c15dfb7710e&symbols=USD");
-        } catch (MalformedURLException e) {
-            throw new CurrencyRateConvertorException("url to fixer doesn't get valid data.");
-        }
+    public FixerRateClient( @Value("${fixerRateUrl}" ) URL fixerRateUrl) {
+        this.fixerRateUrl = fixerRateUrl;
     }
 
 // GETTERS ( & SETTERS IF MUTABLE)
@@ -45,7 +41,7 @@ public class FixerRateClient implements CurrencyRateClient {
     @Override
     public BigDecimal getDollarRating() {
         try (
-                Scanner scanner = new Scanner(restApiUrl.openStream())
+                Scanner scanner = new Scanner(fixerRateUrl.openStream())
         ) {
             // strip the property part of the JSON -> { "USD":
             scanner.skip(JSONPROP_QUOTE_USD_QUOTE_IS);

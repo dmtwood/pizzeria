@@ -2,6 +2,7 @@ package com.dimidev.vdab.spring.pizzeria.restclients;
 
 import com.dimidev.vdab.spring.pizzeria.exceptions.CurrencyRateConvertorException;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -26,12 +27,8 @@ public class ECBRateClient implements CurrencyRateClient {
 
 // CONSTRUCTORS
 
-    public ECBRateClient() {
-        try {
-            this.ecbRateUrl = new URL("https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml");
-        } catch (MalformedURLException e) {
-            throw new CurrencyRateConvertorException("ECB url doesn't return a valid currency rate", e);
-        }
+    public ECBRateClient(@Value(" ${ecbRateUrl}") URL ecbRateUrl) {
+        this.ecbRateUrl = ecbRateUrl;
     }
 
 
