@@ -16,7 +16,7 @@ public class ColorController {
 
 // MEMBER VARS
 
-    private static final int A_YEAR_IN_SECONDS = 31_536_000;
+    private static final int A_YEAR_IN_SECONDS = 31536000;
 
 // CONSTRUCTORS
 
