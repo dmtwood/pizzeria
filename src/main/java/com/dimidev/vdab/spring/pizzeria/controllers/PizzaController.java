@@ -73,7 +73,7 @@ public class PizzaController {
                             try {
                                 pizzaDetailView.addObject("priceInDollar", euroService.euroToDollar(pizza.getPrice()));
                             } catch (CurrencyRateConvertorException ex) {
-
+                                logger.error("USD rates can't be fetched");
                             }
                         } );
         return pizzaDetailView;
