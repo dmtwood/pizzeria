@@ -15,7 +15,9 @@ public class DataSourceTest {
     private final DataSource dataSource;
 
 // CONSTRUCTORS
-
+/*
+DataSource: connection pool with ready-to-use DB-connection-objects (configured in app.props (incl replace=none) )
+ */
     public DataSourceTest(DataSource dataSource) {
         this.dataSource = dataSource;
     }
