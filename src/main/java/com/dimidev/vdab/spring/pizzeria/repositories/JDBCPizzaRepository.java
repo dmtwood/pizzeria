@@ -119,11 +119,13 @@ o	spring injects the DataSource-bean in JdbcTemplate
         );
     }
 
+
     @Override
     public List<BigDecimal> findUniquePrices() {
         String findUniquePricesQuery = "select id, name, price, spicy from pizzas where price = ?";
         return jdbcTemplate.query( findUniquePricesQuery, priceMapper );
     }
+
 
     @Override
     public List<Pizza> findbyPrice(BigDecimal wantedPrice) {
