@@ -29,7 +29,7 @@ public interface PizzaRepository {
 
     List<BigDecimal> findUniquePrices();
 
-    List<Pizza> findbyPrice(BigDecimal wantedPrice);
+    List<Pizza> findByPrice(BigDecimal wantedPrice);
 
     List<Pizza> findByIds(Set<Long> ids);
 

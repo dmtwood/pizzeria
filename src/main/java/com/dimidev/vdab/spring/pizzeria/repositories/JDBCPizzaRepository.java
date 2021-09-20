@@ -69,7 +69,11 @@ o	spring injects the DataSource-bean in JdbcTemplate
         if (
                 jdbcTemplate.update(
                         "update pizzas set name=?, price=?, spicy=? where id=?",
+                        pizza.getName(),
+                        pizza.getPrice(),
+                        pizza.isSpicy(),
                         pizza.getId()
+
                 ) == 0
         ) throw new PizzaNotFoundException();
     }
@@ -122,13 +126,13 @@ o	spring injects the DataSource-bean in JdbcTemplate
 
     @Override
     public List<BigDecimal> findUniquePrices() {
-        String findUniquePricesQuery = "select id, name, price, spicy from pizzas where price = ?";
+        String findUniquePricesQuery = "select distinct price from pizzas order by price";
         return jdbcTemplate.query( findUniquePricesQuery, priceMapper );
     }
 
 
     @Override
-    public List<Pizza> findbyPrice(BigDecimal wantedPrice) {
+    public List<Pizza> findByPrice(BigDecimal wantedPrice) {
         String findbyPriceQuery = "select id, name, price, spicy from pizzas where price = ? order by name";
         return jdbcTemplate.query(findbyPriceQuery, pizzaRowMapper, wantedPrice);
     }
