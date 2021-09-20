@@ -3,6 +3,7 @@ package com.dimidev.vdab.spring.pizzeria.controllers;
 import com.dimidev.vdab.spring.pizzeria.domain.Pizza;
 import com.dimidev.vdab.spring.pizzeria.exceptions.CurrencyRateConvertorException;
 import com.dimidev.vdab.spring.pizzeria.services.EuroService;
+import com.dimidev.vdab.spring.pizzeria.services.PizzaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -17,8 +18,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.slf4j.LoggerFactory.*;
-
 @Controller
 @RequestMapping("/pizzas")
 public class PizzaController {
@@ -26,21 +25,23 @@ public class PizzaController {
     // MEMBER VARS
 
     private final EuroService euroService;
+    private final PizzaService pizzaService;
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass() );
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private final Pizza[] pizzas = {
+/*    private final Pizza[] pizzas = {
             new Pizza(1, "pollo", BigDecimal.valueOf(13), false),
             new Pizza(2, "funghi", BigDecimal.valueOf(15), false),
             new Pizza(3, "pepperoni", BigDecimal.valueOf(14), true),
             new Pizza(4, "veggie", BigDecimal.valueOf(12), false),
             new Pizza(5, "pizza papi", BigDecimal.valueOf(17), true),
-    };
+    };*/
 
 // CONSTRUCTORS
 
-    public PizzaController(EuroService euroService) {
+    public PizzaController(EuroService euroService, PizzaService pizzaService) {
         this.euroService = euroService;
+        this.pizzaService = pizzaService;
     }
 
 
@@ -52,7 +53,7 @@ public class PizzaController {
     public ModelAndView pizzas(
             @CookieValue(name = "colorCookie", required = false) String color
     ) {
-        ModelAndView pizzasView = new ModelAndView("pizzas", "pizzas", pizzas);
+        ModelAndView pizzasView = new ModelAndView("pizzas", "pizzas", pizzaService.findAll());
         pizzasView.addObject("color", color);
         return pizzasView;
     }
@@ -65,17 +66,29 @@ public class PizzaController {
     ) {
         ModelAndView pizzaDetailView = new ModelAndView("pizza");
         pizzaDetailView.addObject("color", color);
-        Arrays.stream(pizzas)
+
+/*        Arrays.stream(pizzas)
                 .filter(pizza -> pizza.getId() == id)
                 .findFirst()
                 .ifPresent( pizza -> {
-                            pizzaDetailView.addObject("pizza", pizza);
-                            try {
-                                pizzaDetailView.addObject("priceInDollar", euroService.euroToDollar(pizza.getPrice()));
-                            } catch (CurrencyRateConvertorException ex) {
-                                logger.error("USD rates can't be fetched");
-                            }
-                        } );
+                    pizzaDetailView.addObject("pizza", pizza);
+                    try {
+                        pizzaDetailView.addObject("priceInDollar", euroService.euroToDollar(pizza.getPrice()));
+                    } catch (CurrencyRateConvertorException ex) {
+                        logger.error("USD rates can't be fetched");
+                    }
+                } );*/
+
+        pizzaService.findById(id).ifPresent(
+                pizza -> {
+                    pizzaDetailView.addObject(pizza);
+                    try {
+                        pizzaDetailView.addObject("priceInDollar", euroService.euroToDollar(pizza.getPrice()));
+                    } catch (CurrencyRateConvertorException ex) {
+                        logger.error("USD rates can't be fetched");
+                    }
+                }
+        );
         return pizzaDetailView;
     }
 
@@ -85,7 +98,8 @@ public class PizzaController {
         return new ModelAndView(
                 "prices",
                 "prices",
-                getPrices()
+                // getPrices()
+                pizzaService.findUniquePrices()
         );
     }
 
@@ -97,15 +111,17 @@ public class PizzaController {
         return new ModelAndView(
                 "prices",
                 "pizzasWithPrice",
-                pizzasByPrice(price)
+                // pizzasByPrice(price)
+                pizzaService.findByPrice(price)
         ).addObject(
                 "prices",
-                getPrices()
+                // getPrices()
+                pizzaService.findUniquePrices()
         );
     }
 
 
-    private List<BigDecimal> getPrices() {
+/*    private List<BigDecimal> getPrices() {
         return Arrays.stream(pizzas)
                 .map(Pizza::getPrice)
                 .distinct()
@@ -117,7 +133,7 @@ public class PizzaController {
         return Arrays.stream(pizzas)
                 .filter(pizza -> pizza.getPrice().compareTo(price) == 0)
                 .collect(Collectors.toList());
-    }
+    }*/
 
 
 // OVERRIDDEN METHODS
