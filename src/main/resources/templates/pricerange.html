@@ -10,11 +10,19 @@
 
 <h1> Set a price range </h1>
 <form th:object="${priceRangeForm}" method="get" th:action="@{/pizzas/pricerange}">
-    <label> Preferred minimum price: <span th:errors="*{minPrice}"></span> <input th:field="*{minPrice}" autofocus> </label>
-    <label> Preferred maximum price: <span th:errors="*{maxPrice}"></span> <input th:field="*{maxPrice}"> </label>
+    <label> Preferred minimum price:
+        <span th:errors="*{minPrice}"></span> <input th:field="*{minPrice}" autofocus type="number" required min="0">
+    </label>
+    <label> Preferred maximum price:
+        <span th:errors="*{maxPrice}"></span> <input th:field="*{maxPrice}" type="number" required min="0">
+    </label>
     <button> Find Pizzas in this price range </button>
 </form>
-
+<script>
+    document.getElementsByName("minPrice")[0].oninvalid = function () {
+        this.setCustomValidity("Required!")
+    }
+</script>
 <h2> pizzas in this price range are: </h2>
 <ul th:if="${pizzasInPricerange} != null">
     <li th:each="pizza:${pizzasInPricerange}" th:object="${pizza}">
