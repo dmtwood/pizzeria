@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head('Pizza papie - Price range form')">
+    <meta charset="UTF-8">
+</head>
+
+<body>
+<img th:replace="fragments::banner"/>
+<nav th:replace="fragments::nav"></nav>
+
+<h1> Price range form</h1>
+
+<form th:object="${priceRangeForm}" method="get" th:action="@{/pizzas/pricerange}">
+    <label> Preferred minimum price: <input th:field="*{minPrice}" autofocus> </label>
+    <label> Preferred maximum price: <input th:field="*{maxPrice}"> </label>
+    <button> Find Pizzas in this price range </button>
+</form>
+
+<ul th:if="${pizzasInPricerange} != null">
+    <li th:each="pizza:${pizzasInPricerange}" th:object="${pizza}">
+        <table>
+            <tr>
+                <td th:width="100"><span th:text="*{name}"></span> </td>
+                <td> &euro;  </td>
+                <td> <span th:text="*{price}"></span></td>
+            </tr>
+        </table>
+
+    </li>
+</ul>
+
+</body>
+</html>

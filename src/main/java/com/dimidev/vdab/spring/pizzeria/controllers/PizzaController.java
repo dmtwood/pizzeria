@@ -2,6 +2,7 @@ package com.dimidev.vdab.spring.pizzeria.controllers;
 
 import com.dimidev.vdab.spring.pizzeria.domain.Pizza;
 import com.dimidev.vdab.spring.pizzeria.exceptions.CurrencyRateConvertorException;
+import com.dimidev.vdab.spring.pizzeria.forms.PriceRangeForm;
 import com.dimidev.vdab.spring.pizzeria.services.EuroService;
 import com.dimidev.vdab.spring.pizzeria.services.PizzaService;
 import org.slf4j.Logger;
@@ -120,6 +121,23 @@ public class PizzaController {
         );
     }
 
+
+    @GetMapping("/pricerange/form")
+    public ModelAndView priceRangeForm(){
+        return new ModelAndView("pricerange")
+                .addObject(
+                        "priceRangeForm",
+                        new PriceRangeForm(null,null)
+                );
+    }
+    @GetMapping("/pricerange")
+    public ModelAndView pricerange(PriceRangeForm priceRangeForm){
+        return new ModelAndView(
+                "pricerange",
+                "pizzasInPricerange",
+                pizzaService.findByPriceBetween(priceRangeForm.getMinPrice(), priceRangeForm.getMaxPrice())
+        );
+    }
 
 /*    private List<BigDecimal> getPrices() {
         return Arrays.stream(pizzas)
