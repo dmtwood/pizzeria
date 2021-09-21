@@ -8,12 +8,14 @@ import com.dimidev.vdab.spring.pizzeria.services.PizzaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
@@ -123,19 +125,28 @@ public class PizzaController {
 
 
     @GetMapping("/pricerange/form")
-    public ModelAndView priceRangeForm(){
+    public ModelAndView priceRangeForm() {
         return new ModelAndView("pricerange")
                 .addObject(
                         "priceRangeForm",
-                        new PriceRangeForm(null,null)
+                        new PriceRangeForm(null, null)
                 );
     }
+
     @GetMapping("/pricerange")
-    public ModelAndView pricerange(PriceRangeForm priceRangeForm){
-        return new ModelAndView(
-                "pricerange",
+    public ModelAndView pricerange(
+            @Valid PriceRangeForm priceRangeForm,
+            Errors errors
+    ) {
+        ModelAndView pricerangeView = new ModelAndView("pricerange");
+        if (errors.hasErrors())
+            return pricerangeView;
+        return pricerangeView.addObject(
                 "pizzasInPricerange",
-                pizzaService.findByPriceBetween(priceRangeForm.getMinPrice(), priceRangeForm.getMaxPrice())
+                pizzaService.findByPriceBetween(
+                        priceRangeForm.getMinPrice(),
+                        priceRangeForm.getMaxPrice()
+                )
         );
     }
 
@@ -152,9 +163,6 @@ public class PizzaController {
                 .filter(pizza -> pizza.getPrice().compareTo(price) == 0)
                 .collect(Collectors.toList());
     }*/
-
-
-// OVERRIDDEN METHODS
 
 }
 

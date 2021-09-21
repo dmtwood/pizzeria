@@ -11,9 +11,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
-@Import(FixerRateClient.class)
-@PropertySource("spring.properties")
-class ECBRateClientTest {
+@Import(ECBRateClient.class)
+@PropertySource("application.properties")
+class ECBCurrencyRateClientTest {
 
     private final ECBRateClient ecbRateClient;
 
@@ -23,7 +23,7 @@ class ECBRateClientTest {
 //    }
 
 
-    public ECBRateClientTest(ECBRateClient ecbRateClient) {
+    public ECBCurrencyRateClientTest(ECBRateClient ecbRateClient) {
         this.ecbRateClient = ecbRateClient;
     }
 

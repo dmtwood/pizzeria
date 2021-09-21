@@ -11,7 +11,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @Import(FixerRateClient.class)
-@PropertySource("spring.properties")
+@PropertySource("application.properties")
 public class FixerCurrencyRateClientTest {
 
 // MEMBER VARS

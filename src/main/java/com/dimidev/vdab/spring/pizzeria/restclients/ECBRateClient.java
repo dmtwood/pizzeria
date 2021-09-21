@@ -18,7 +18,7 @@ import java.net.URL;
 
 @Component
 //@Qualifier("EcbRate")
-@Order(2)
+@Order(1)
 public class ECBRateClient implements CurrencyRateClient {
 
 // MEMBER VARS
@@ -27,12 +27,10 @@ public class ECBRateClient implements CurrencyRateClient {
 
 // CONSTRUCTORS
 
-    public ECBRateClient(@Value(" ${ecbRateUrl}") URL ecbRateUrl) {
+    public ECBRateClient(
+            @Value("${ecbRateUrl}") URL ecbRateUrl) {
         this.ecbRateUrl = ecbRateUrl;
     }
-
-
-// GETTERS ( & SETTERS IF MUTABLE)
 
 
 // METHODS
@@ -46,6 +44,8 @@ public class ECBRateClient implements CurrencyRateClient {
 
  close the reader & catch exceptions
  */
+
+    // OVERRIDDEN METHODS
 
     @Override
     public BigDecimal getDollarRating() {
@@ -69,6 +69,5 @@ public class ECBRateClient implements CurrencyRateClient {
     }
 
 
-// OVERRIDDEN METHODS
 
 }

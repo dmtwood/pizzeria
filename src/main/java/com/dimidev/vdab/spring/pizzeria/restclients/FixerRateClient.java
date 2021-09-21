@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 @Component
 //@Qualifier("FixerRate")
-@Order(1)
+@Order(2)
 public class FixerRateClient implements CurrencyRateClient {
 
 // MEMBER VARS
@@ -26,11 +26,10 @@ public class FixerRateClient implements CurrencyRateClient {
 
 // CONSTRUCTORS
 
-    public FixerRateClient( @Value("${fixerRateUrl}" ) URL fixerRateUrl) {
+    public FixerRateClient(
+             @Value("${fixerRateUrl}") URL fixerRateUrl) {
         this.fixerRateUrl = fixerRateUrl;
     }
-
-// GETTERS ( & SETTERS IF MUTABLE)
 
 
 // METHODS
