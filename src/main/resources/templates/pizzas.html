@@ -11,6 +11,11 @@
 
 <nav th:replace="fragments::nav"></nav>
 
+<div th:if="${param.added}!=null" class="boodschap">
+    Pizza is added with id
+    <span th:text="${param.added}"></span>
+</div>
+
 <h2> Our Pizza's today</h2>
 
 <table>

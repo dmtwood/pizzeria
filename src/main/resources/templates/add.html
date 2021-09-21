@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments::head('Pizza papi - add a pizza')">
+    <meta charset="UTF-8">
+
+</head>
+<body>
+<script th:src="@{/js/preventDoubleSubmit}" defer></script>
+
+<img th:replace="fragments::banner"/>
+<nav th:replace="fragments::nav"></nav>
+
+<h2> Add: </h2>
+
+<form th:object="${newPizza}" method="post" th:action="@{/pizzas}">
+    <label>
+        Name: <span th:errors="*{name}"></span>
+        <input th:field="*{name}" autofocus required/>
+    </label>
+    <label>
+        Price: <span th:errors="*{price}"></span>
+        <input th:field="*{price}" required type="number" min="0">
+    </label>
+    <label>
+        Spicy:
+        <input th:field="*{spicy}" type="checkbox"/>
+    </label>
+    <input type="hidden" name="id" value="0"/>
+    <button> Add pizza </button>
+</form>
+
+</body>
+</html>

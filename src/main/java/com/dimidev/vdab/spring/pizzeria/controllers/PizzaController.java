@@ -9,11 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
@@ -149,6 +147,30 @@ public class PizzaController {
                 )
         );
     }
+
+    // returns a Pizza Object as a form to the addPizza view
+    @GetMapping("/add/form")
+    public ModelAndView addForm(){
+        ModelAndView addPizzaView = new ModelAndView("add");
+        addPizzaView.addObject("newPizza", new Pizza(0,"",null,false));
+        return addPizzaView;
+    }
+
+    @PostMapping
+    public String add(
+            @Valid Pizza newPizza,
+            Errors errors,
+            RedirectAttributes redirectAttributes
+    ){
+        if (errors.hasErrors())
+//            return new ModelAndView("add");
+            return "add";
+        long newId = pizzaService.create(newPizza);
+        redirectAttributes.addAttribute("added", newId);
+//        return new ModelAndView("pizzas", "pizzas", pizzaService.findAll());
+        return "redirect:/pizzas";
+    }
+
 
 /*    private List<BigDecimal> getPrices() {
         return Arrays.stream(pizzas)
