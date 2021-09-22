@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head(title='Pizza Papi - login')">
+</head>
+<body>
+<script th:src="@{/js/preventDoubleSubmit.js}" defer></script>
+
+<img th:replace="fragments::banner"/>
+<nav th:replace="fragments::nav"></nav>
+
+<h1> Identification </h1>
+
+<form th:object="${identification}" method="post" th:action="@{identification}">
+    <label>
+        Email-address:
+        <span th:errors="*{emailAddress}"></span>
+        <input th:field="*{emailAddress}" autofocus required type="email"/>
+        <button type="submit"> Start my session </button>
+    </label>
+</form>
+
+</body>
+</html>

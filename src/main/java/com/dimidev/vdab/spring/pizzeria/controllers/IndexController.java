@@ -2,6 +2,7 @@ package com.dimidev.vdab.spring.pizzeria.controllers;
 
 import com.dimidev.vdab.spring.pizzeria.domain.Address;
 import com.dimidev.vdab.spring.pizzeria.domain.Person;
+import com.dimidev.vdab.spring.pizzeria.sessions.Identification;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,16 @@ class IndexController {
 
     // MEMBER VARS
 
+    private final Identification identification;
     private final AtomicInteger nrOfVisits = new AtomicInteger();
+
+
+    // CONSTRUCTORS
+
+    public IndexController(Identification identification) {
+        this.identification = identification;
+    }
+
 
     // METHODS
 
@@ -46,7 +56,8 @@ class IndexController {
                     LocalDate.of(1976,8, 5),
                     new Address("Kruishuisstraat", "66b2", "2300", "Turnhout")
         ));
-
+        //add the session
+        indexView.addObject(identification);
         return indexView;
     }
 

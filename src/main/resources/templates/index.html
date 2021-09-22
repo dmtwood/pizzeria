@@ -26,8 +26,12 @@
     <dd th:text=" *{nrOfKids} ? 'Yes' : 'Nope' "></dd>
     <dt> Address </dt>
     <dd th:object="${chef.address}" th:text=" | *{street} *{nr} *{areaCode} *{town} | " > </dd>
-
 </dl>
+
+<div th:if="${identification.emailAddress} != null">
+<p> You are identified with </p>
+<p th:text="${identification.emailAddress}"></p>
+</div>
 
 <h4> This page was visited <span th:text="${nrOfVisits}"></span> times.</h4>
 </body>
