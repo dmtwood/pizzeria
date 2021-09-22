@@ -56,8 +56,8 @@ class IndexController {
                     LocalDate.of(1976,8, 5),
                     new Address("Kruishuisstraat", "66b2", "2300", "Turnhout")
         ));
-        //add the session
-        indexView.addObject(identification);
+//        //add the session -> moved to AdviceController to generalize scope
+//        indexView.addObject(identification);
         return indexView;
     }
 
