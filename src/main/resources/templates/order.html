@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="fragments::head('Pizza Papi - your order')">
+</head>
+<body>
+<script th:src="@{/js/preventDoubleSubmit.js}" defer></script>
+<img th:replace="fragments::banner"/>
+<nav th:replace="fragments::nav"></nav>
+
+<h1>Your order</h1>
+
+<!--  no form object needed > minimal data posted (just the id) -->
+<form th:action="@{/order}" method="post">
+    <select name="id">
+        // map each pizza id to the select name "id"
+        <option th:each="selectedPizza:${allPizzas}"
+                th:object="${selectedPizza}"
+                th:text="*{name}"
+                th:value="*{id}"
+        > </option>
+    </select>
+    <button> Add to order </button>
+</form>
+
+<h1 th:if="${pizzasInOrder} != null"> Pizza's in order</h1>
+<ul th:if="${pizzasInOrder} != null">
+    <li th:each="pizza:${pizzasInOrder}" th:text="${pizza.name}"></li>
+</ul>
+</body>
+</html>
