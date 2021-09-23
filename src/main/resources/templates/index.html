@@ -7,7 +7,7 @@
 
 <body th:class="${color}">
 
-<img th:replace="fragments::banner" >
+<img th:replace="fragments::banner">
 
 <nav th:replace="fragments::nav"></nav>
 
@@ -18,24 +18,38 @@
 <h2> Your chef today is </h2>
 
 <dl th:object="${chef}">
-    <dt> Name </dt>
+    <dt> Name</dt>
     <dd th:text="*{fullName}"></dd>
-    <dt> Number of kids </dt>
+    <dt> Number of kids</dt>
     <dd th:text="*{nrOfKids}"></dd>
     <dt> Married ?</dt>
     <dd th:text=" *{married} ? 'Yes' : 'Nope' "></dd>
-    <dt> Address </dt>
-    <dd th:object="${chef.address}" th:text=" | *{street} *{nr} *{areaCode} *{town} | " > </dd>
-    <dt> Date of birth </dt>
+    <dt> Address</dt>
+    <dd th:object="${chef.address}" th:text=" | *{street} *{nr} *{areaCode} *{town} | "></dd>
+    <dt> Date of birth</dt>
     <!-- double {{}} to apply format annotation -->
     <dd th:text="*{{dateOfBirth}}"></dd>
 </dl>
 <!-- error warning can be ignored - object is generalized in MyAdviceController -->
 <div th:if="${identification.emailAddress} != null">
-<p> You are identified with </p>
-<p th:text="${identification.emailAddress}"></p>
+    <p> You are identified with </p>
+    <p th:text="${identification.emailAddress}"></p>
 </div>
 
 <h4> This page was visited <span th:text="${nrOfVisits}"></span> times.</h4>
+
+<footer class="footer_wrapper" id="contact">
+
+    <div class="container">
+        <div class="footer_bottom footer_fix">
+            <table style="position: absolute; left: 0px; width: 100%; overflow: hidden;">
+                <tr>
+                    <td align="right"><b> Dimitri Gevers </b></td>
+
+                </tr>
+            </table>
+        </div>
+    </div>
+</footer>
 </body>
 </html>
