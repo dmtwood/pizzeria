@@ -52,7 +52,7 @@ class IndexController {
         indexView.addObject("nrOfVisits", nrOfVisits.incrementAndGet() );
         indexView.addObject("chef",
                 new Person(
-                    "Dimi", "Fromaggi", 1,true ,
+                    "Dimitri", "Gevers", 1,true ,
                     LocalDate.of(1976,8, 5),
                     new Address("Kruishuisstraat", "66b2", "2300", "Turnhout")
         ));
