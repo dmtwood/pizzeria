@@ -1,5 +1,7 @@
 package com.dimidev.vdab.spring.pizzeria.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 public class Person {
@@ -9,6 +11,7 @@ public class Person {
     private final String lastName;
     private final int nrOfKids;
     private final boolean isMarried ;
+    @DateTimeFormat(style = "S-")
     private final LocalDate dateOfBirth;
     private final Address address;
 

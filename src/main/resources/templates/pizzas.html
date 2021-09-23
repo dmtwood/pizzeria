@@ -23,7 +23,7 @@
         <td th:text="*{name}" th:width="100px"></td>
 
         <td> &euro; </td>
-        <td th:text=" |*{price} | " th:width="30px"> </td>
+        <td th:text=" |*{{price}} | " th:width="30px"> </td>
 
         <td th:if="*{spicy}" th:width="80px"> (is spicy) </td>
         <td th:if="not*{spicy}" th:width="80px">  </td>
