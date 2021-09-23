@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-@Component
+//@Component -> created custom beans for restclients in BeanFactory
 //@Qualifier("EcbRate")
 @Order(1)
 public class ECBRateClient implements CurrencyRateClient {

@@ -13,7 +13,7 @@ import java.net.URL;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-@Component
+//@Component -> created custom beans for restclients in BeanFactory
 //@Qualifier("FixerRate")
 @Order(2)
 public class FixerRateClient implements CurrencyRateClient {
