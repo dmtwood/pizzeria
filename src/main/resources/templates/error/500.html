@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments::head(title='Pizza papi - Er is een fout opgetreden bij de server')">
+<body>
+<img th:replace="fragments::banner"/>
+<nav th:replace="fragments::nav"></nav>
+
+<h1> Storing</h1>
+<p>Er is een fout opgetreden bij de server, neem contact met de helpdesk </p>
+<img th:src="@{/images/500.jpg}">
+</body>
+</html>

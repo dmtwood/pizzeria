@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments::head(title='Pizza papi - deze pagina kon niet gevonden worden')">
+<body>
+<img th:replace="fragments::banner"/>
+<nav th:replace="fragments::nav"></nav>
+
+<h1> Deze pagina kon niet gevonden worden</h1>
+<img th:src="@{/images/404.jpg}">
+</body>
+</html>
